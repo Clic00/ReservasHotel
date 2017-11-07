@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<script type="text/javascript">
+var ss = -1;
+function atualizaContador(futuro) 
+{
+  ss = (ss==-1) ? futuro : ss;
+  var faltam =  '<footer align="right" style="font-size:10px ">Aguarde... redirecionando em '+ss+' segundos. </footer>';
+
+  if (ss > 0) {
+	document.getElementById('contador').innerHTML = faltam;
+	ss--;
+	setTimeout(atualizaContador,1000);	
+  }
+}
+</script>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Hotel Jardins das Maçãs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Refresh" content= "5; URL=Primeiro.jsf"/>
+</head>
+<body onload="atualizaContador(5)">
+	<br/>
+	<br/>
+		<br/>
+		<br/>
+			
+	<h1 align="center" >
+		Bem vindo ao<br/>
+		Hotel Jardins das Maçãs
+		
+	</h1>
+	
+	<h1 align="center">	<a href="http://localhost:8080/ReservasHotel/Primeiro.jsf" style="align-content: center">Acessar</a>
+	</h1>
+	
+	<div id="contador"> </div>
+</body>
+</html>
+	

@@ -1,0 +1,40 @@
+@charset "ISO-8859-1";
+
+body {
+	font: normal 10px Arial;
+	
+}
+
+table {
+	width: 70%;
+}
+
+tr > th {
+	
+	background-color: gray;
+}
+
+tr.linha1 > td {
+	background-color: #EEE;
+}
+
+tr.linha2 > td {
+	background-color: white;
+}
+
+.info{
+	color:#00F;
+}
+
+.warn{
+	color:#CC0;
+}
+
+.erro {
+	color: red;
+}
+
+.fatal{
+	color: #F00;
+	font-weight: bold;
+}
