@@ -19,113 +19,104 @@ public class CadastroPessoasBean {
 	private Pessoa pessoaSelecionada;
 	private Collection<Pessoa> lista;
 	private String tipoNovaPessoa;
-		
+
 	public CadastroPessoasBean() {
-//		lista = new ArrayList<Pessoa>();
-//		//pessoaSelecionada = new PessoaFisica();
-//		
-//		lista.clear();
-//		for(int x=0; x<10;x++) {
-//			Pessoa p = (x%2==0) ?  new PessoaFisica() : new PessoaJuridica();
-//			p.setNome(String.format("Hospede %02d", x));
-//			p.setEmail(String.format("cliente%02d@teste.com",x));
-//			p.setTelefone(String .format("(091)890238%02d",x));
-//			lista.add(p);
-//		}
+		lista = new ArrayList<Pessoa>();
+		tipoNovaPessoa = "";
 	}
 
 	public void Listar() {
-		lista = new ArrayList<Pessoa>();
-		//pessoaSelecionada = new PessoaFisica();
-		
+
+		Pessoa p = null;
 		lista.clear();
-		
-		if(tipoNovaPessoa.equals("PF")) {
-			for(int x=0; x<10;x++) {
-				Pessoa p =  new PessoaFisica() ;
+
+		if (tipoNovaPessoa.equals("PF")) {
+			for (int x = 0; x < 10; x++) {
+				p = new PessoaFisica();
 				p.setNome(String.format("Hospede %02d", x));
-				p.setEmail(String.format("cliente%02d@teste.com",x));
-				p.setTelefone(String .format("(091)890238%02d",x));
+				p.setEmail(String.format("cliente%02d@teste.com", x));
+				p.setTelefone(String.format("(091)890238%02d", x));
 				lista.add(p);
 			}
-			
-			
-		} else if(tipoNovaPessoa.equals("PJ")){
-			for(int x=0; x<6;x++) {
-				Pessoa p =  new PessoaFisica() ;
+
+		} else if (tipoNovaPessoa.equals("PJ")) {
+			for (int x = 0; x < 6; x++) {
+				p = new PessoaJuridica();
 				p.setNome(String.format("Empresa %02d", x));
-				p.setEmail(String.format("empresa%02d@teste.com",x));
-				p.setTelefone(String .format("(091)890238%02d",x));
+				p.setEmail(String.format("empresa%02d@teste.com", x));
+				p.setTelefone(String.format("(091)890238%02d", x));
 				lista.add(p);
 			}
 		}
-	
 	}
+
 	public void criar() {
 		FacesContext contexto = FacesContext.getCurrentInstance();
-		if(tipoNovaPessoa==null) {
-			contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Você deve especficar o tipo de Pessoa!",""));
+		if (tipoNovaPessoa == null) {
+			contexto.addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Você deve especficar o tipo de Pessoa!", ""));
 			return;
 		}
-		if(tipoNovaPessoa.equals("PF")) {
+		if (tipoNovaPessoa.equals("PF")) {
 			pessoaSelecionada = new PessoaFisica();
-			
-		} else if(tipoNovaPessoa.equals("PJ")){
+
+		} else if (tipoNovaPessoa.equals("PJ")) {
 			pessoaSelecionada = new PessoaJuridica();
-			
+
 		}
-		contexto.addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO,"Pessoa criada com sucesso!",""));
+		
+		Listar();
+		contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa criada com sucesso!", ""));
 	}
-	
+
 	public void salvar() {
-		if(!lista.contains(pessoaSelecionada)) { 
+		if (!lista.contains(pessoaSelecionada)) {
 			lista.add(pessoaSelecionada);
 		}
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO
-				,"Pessoa incluída com sucesso!"
-				,""));
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa incluída com sucesso!", ""));
 
 	}
-	
-	public String cancelar(){
+
+	public String cancelar() {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
 		lista.clear();
-		return "Primeiro.jsf";
-		
+		return "cadastropessoas.jsf";
+
 	}
-	
+
 	public String voltar() {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
+		lista.clear();
 		return "cadastropessoas.jsf";
 	}
-	
+
 	public void excluir() {
 		lista.remove(pessoaSelecionada);
 		pessoaSelecionada = null;
-		FacesContext.getCurrentInstance().addMessage(
-													null, new FacesMessage(
-																			FacesMessage.SEVERITY_INFO
-																			, "Pessoa excluída com sucesso!"
-																			,""));
-		
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa excluída com sucesso!", ""));
+
 	}
-	
-	
+
 	public Pessoa getPessoaSelecionada() {
 		return pessoaSelecionada;
 	}
+
 	public void setPessoaSelecionada(Pessoa pessoaSelecionada) {
 		this.pessoaSelecionada = pessoaSelecionada;
 	}
+
 	public Collection<Pessoa> getLista() {
 		return lista;
 	}
+
 	public void setLista(Collection<Pessoa> lista) {
 		this.lista = lista;
 	}
-	
+
 	public String getTipoNovaPessoa() {
 		return tipoNovaPessoa;
 	}
@@ -133,20 +124,18 @@ public class CadastroPessoasBean {
 	public void setTipoNovaPessoa(String tipoNovaPessoa) {
 		this.tipoNovaPessoa = tipoNovaPessoa;
 	}
-	
+
 	// Métodos getters de atributos inexistentes
 	public Sexo[] getSexos() {
 		return Sexo.values();
 	}
 
 	public boolean isPessoaFisicaSelecionada() {
-		return 	pessoaSelecionada instanceof PessoaFisica;
+		return pessoaSelecionada instanceof PessoaFisica;
 	}
-	
+
 	public boolean isPessoaJuridicaSeleciona() {
 		return pessoaSelecionada instanceof PessoaJuridica;
 	}
-
-	
 
 }
