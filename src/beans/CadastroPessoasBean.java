@@ -1,7 +1,7 @@
 package beans;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +17,7 @@ import modelo.Sexo;
 @SessionScoped
 public class CadastroPessoasBean {
 	private Pessoa pessoaSelecionada;
-	private Collection<Pessoa> lista;
+	private List<Pessoa> lista = new ArrayList<>();
 	private String tipoNovaPessoa;
 
 	public CadastroPessoasBean() {
@@ -86,10 +86,12 @@ public class CadastroPessoasBean {
 
 	}
 
+	public void limpar() {
+		
+	}
 	public String voltar() {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
-		lista.clear();
 		return "cadastropessoas.jsf";
 	}
 
@@ -109,11 +111,11 @@ public class CadastroPessoasBean {
 		this.pessoaSelecionada = pessoaSelecionada;
 	}
 
-	public Collection<Pessoa> getLista() {
+	public List<Pessoa> getLista() {
 		return lista;
 	}
 
-	public void setLista(Collection<Pessoa> lista) {
+	public void setLista(List<Pessoa> lista) {
 		this.lista = lista;
 	}
 
