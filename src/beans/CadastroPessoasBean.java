@@ -2,6 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,10 +20,13 @@ public class CadastroPessoasBean {
 	private Pessoa pessoaSelecionada;
 	private List<Pessoa> lista = new ArrayList<>();
 	private String tipoNovaPessoa;
+	private ResourceBundle resource;
 
 	public CadastroPessoasBean() {
 		lista = new ArrayList<Pessoa>();
 		tipoNovaPessoa = "";
+		resource = ResourceBundle.getBundle("bundles.mensagens",
+				FacesContext.getCurrentInstance().getExternalContext().getRequestLocale());
 	}
 
 	public void Listar() {
@@ -64,7 +68,7 @@ public class CadastroPessoasBean {
 			pessoaSelecionada = new PessoaJuridica();
 
 		}
-		
+
 		Listar();
 		contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa criada com sucesso!", ""));
 	}
@@ -87,8 +91,9 @@ public class CadastroPessoasBean {
 	}
 
 	public void limpar() {
-		
+
 	}
+
 	public String voltar() {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
@@ -98,8 +103,8 @@ public class CadastroPessoasBean {
 	public void excluir() {
 		lista.remove(pessoaSelecionada);
 		pessoaSelecionada = null;
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa excluída com sucesso!", ""));
+		String mensagem = resource.getString("excluida");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 
 	}
 
