@@ -2,39 +2,37 @@
 
 body {
 	font: normal 10px Arial;
-	
 }
 
 table {
 	width: 70%;
 }
 
-tr > th {
-	
+tr>th {
 	background-color: gray;
 }
 
-tr.linha1 > td {
+tr.linha1>td {
 	background-color: #EEE;
 }
 
-tr.linha2 > td {
+tr.linha2>td {
 	background-color: white;
 }
 
-.info{
-	color:#00F;
+.info {
+	color: #00F;
 }
 
-.warn{
-	color:#CC0;
+.warn {
+	color: #CC0;
 }
 
 .erro {
 	color: red;
 }
 
-.fatal{
+.fatal {
 	color: #F00;
 	font-weight: bold;
 }

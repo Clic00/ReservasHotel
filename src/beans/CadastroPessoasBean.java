@@ -21,6 +21,7 @@ public class CadastroPessoasBean {
 	private List<Pessoa> lista = new ArrayList<>();
 	private String tipoNovaPessoa;
 	private ResourceBundle resource;
+	private String mensagem = "";
 
 	public CadastroPessoasBean() {
 		lista = new ArrayList<Pessoa>();
@@ -55,31 +56,29 @@ public class CadastroPessoasBean {
 	}
 
 	public void criar() {
-		FacesContext contexto = FacesContext.getCurrentInstance();
+		mensagem = resource.getString("seleciona");
 		if (tipoNovaPessoa == null) {
-			contexto.addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Você deve especficar o tipo de Pessoa!", ""));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem, ""));
 			return;
 		}
+
 		if (tipoNovaPessoa.equals("PF")) {
 			pessoaSelecionada = new PessoaFisica();
 
 		} else if (tipoNovaPessoa.equals("PJ")) {
 			pessoaSelecionada = new PessoaJuridica();
-
 		}
 
 		Listar();
-		contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa criada com sucesso!", ""));
 	}
 
 	public void salvar() {
 		if (!lista.contains(pessoaSelecionada)) {
 			lista.add(pessoaSelecionada);
 		}
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "Pessoa incluída com sucesso!", ""));
-
+		mensagem = resource.getString("salva");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 	}
 
 	public String cancelar() {
@@ -103,7 +102,7 @@ public class CadastroPessoasBean {
 	public void excluir() {
 		lista.remove(pessoaSelecionada);
 		pessoaSelecionada = null;
-		String mensagem = resource.getString("excluida");
+		mensagem = resource.getString("excluida");
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 
 	}
