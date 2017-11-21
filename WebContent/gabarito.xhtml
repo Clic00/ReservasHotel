@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+		
+		<title>
+			#{cabecalho}
+			<ui:insert name="titulo">Título provisório a ser informado</ui:insert>
+			
+		</title>
+		<style>
+			@import url("estilo.css");
+		</style>
+	</h:head>
+	
+	<h:body>
+		<div id="topo">
+			<h:graphicImage name="paisagem107.jpg" library="imagens" style=" margin:10px;  height : 60px; width : 175px; " />
+			<h:form>
+				<ui:repeat var="l" value="#{geralBean.localesDisponiveis}">
+					<h:commandButton image="bandeiras/#{l}.gif" actionListener="#{geralBean.atualizarLocale}" value="" >
+						<f:attribute name="locale" value="#{l}"/>
+					</h:commandButton>
+				</ui:repeat>
+			</h:form>
+		</div>
+		<div id="conteudo">
+			<div id="esquerda">
+				<ui:include src="/menu.xhtml" />
+			</div>
+			<div id="direita">
+				<ui:insert name="direita">alocar elementos da direita</ui:insert>
+			</div>
+			<div id="centro">
+				<ui:insert>alocar elementos do centro</ui:insert>
+			</div>
+		</div>
+		<div id="rodape">
+			<strong>Hotel Jardins das Maçãs</strong><br /> +55 (91) 98129-4079
+		</div>
+	</h:body>
+</html>

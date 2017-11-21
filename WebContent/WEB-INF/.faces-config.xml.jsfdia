@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#*" PATH="/*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#*:0" NAME="item" PATH="/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="inicio::#Primeiro.jsf" NAME="output"
+    PATH="/Primeiro.jsf" TARGET="rules:#Primeiro.jsf" TITLE="inicio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="cadastro::#cadastropessoas.jsf"
+    NAME="output1" PATH="/cadastropessoas.jsf"
+    TARGET="rules:#cadastropessoas.jsf" TITLE="cadastro" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#Primeiro.jsf" PATH="/Primeiro.jsf"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#cadastropessoas.jsf"
+  PATH="/cadastropessoas.jsf" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

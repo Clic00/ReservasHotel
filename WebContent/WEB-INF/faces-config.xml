@@ -20,5 +20,20 @@
 		</resource-bundle>
 		<message-bundle>bundles.mensagenssistema</message-bundle>
 	</application>
-
+	<lifecycle>
+		<phase-listener>listeners.OuvinteFases</phase-listener>
+	</lifecycle>
+	<navigation-rule>
+			<from-view-id>/*</from-view-id>
+			<navigation-case>
+				<from-outcome>inicio</from-outcome>
+				<to-view-id>/Primeiro.jsf</to-view-id>
+				<redirect/>
+			</navigation-case>
+			<navigation-case>
+				<from-outcome>cadastro</from-outcome>
+				<to-view-id>/cadastropessoas.jsf</to-view-id>
+				<redirect/>
+			</navigation-case>
+	</navigation-rule>
 </faces-config>

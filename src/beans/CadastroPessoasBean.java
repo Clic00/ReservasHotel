@@ -26,8 +26,10 @@ public class CadastroPessoasBean {
 	public CadastroPessoasBean() {
 		lista = new ArrayList<Pessoa>();
 		tipoNovaPessoa = "";
+		// resource = ResourceBundle.getBundle("bundles.mensagens",
+		// FacesContext.getCurrentInstance().getExternalContext().getRequestLocale());
 		resource = ResourceBundle.getBundle("bundles.mensagens",
-				FacesContext.getCurrentInstance().getExternalContext().getRequestLocale());
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
 	}
 
 	public void Listar() {
@@ -85,7 +87,8 @@ public class CadastroPessoasBean {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
 		lista.clear();
-		return "cadastropessoas.jsf";
+		return "inicio";
+//		return "cadastropessoas.jsf";
 
 	}
 
@@ -96,12 +99,15 @@ public class CadastroPessoasBean {
 	public String voltar() {
 		pessoaSelecionada = null;
 		tipoNovaPessoa = null;
-		return "cadastropessoas.jsf";
+		return "cadastro";
 	}
 
 	public void excluir() {
 		lista.remove(pessoaSelecionada);
 		pessoaSelecionada = null;
+		resource = ResourceBundle.getBundle("bundles.mensagens",
+				FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		
 		mensagem = resource.getString("excluida");
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 

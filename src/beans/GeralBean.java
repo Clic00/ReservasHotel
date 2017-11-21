@@ -8,31 +8,42 @@ import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 @ManagedBean
 @SessionScoped
 public class GeralBean {
 	private Locale locale;
 	private List<Locale> localesDisponiveis = new ArrayList<>();
-	private 		FacesContext contexto = FacesContext.getCurrentInstance();
-	
+
 	public GeralBean() {
 
-		Iterator<Locale> it = contexto.getApplication().getSupportedLocales();
+		Iterator<Locale> it = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
 
 		while (it.hasNext()) {
 			localesDisponiveis.add(it.next());
 		}
 
 		// Atribuindo o Locale sugerido pelo browser:
-		locale = contexto.getExternalContext().getRequestLocale();
+		locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
 
 		// Atribuindo o Locale default do faces-config:
-		locale = contexto.getApplication().getDefaultLocale();
+		locale = FacesContext.getCurrentInstance().getApplication().getDefaultLocale();
 
 		// Atribuindo o Locale calculado pelo UIViewRoot:
-		locale = contexto.getViewRoot().getLocale();
+		setLocale(FacesContext.getCurrentInstance().getViewRoot().getLocale());
+		// locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
+	}
+
+	public void atualizarLocale(ActionEvent e) throws Exception {
+		Locale l = (Locale) e.getComponent().getAttributes().get("locale");
+
+		if (l != null)
+			setLocale(l);
+		// locale = l;
+
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(getLocale());
 	}
 
 	public Locale getLocale() {
