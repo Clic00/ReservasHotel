@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:cli="http://www.clic00.com.br/facelets/taglibs"
+	xmlns:clic="http://java.sun.com/jsf/composite/componentes">
 
 		<ui:composition template="/gabarito.xhtml">
 			<ui:define name="titulo"></ui:define>
@@ -40,9 +42,10 @@
 					<f:facet name="header" 	>Dados Gerais</f:facet>
 					<h:outputLabel for="nome" value="Nome" />
 					<h:inputText id="nome"
-						value="#{cadastroPessoasBean.pessoaSelecionada.nome}"
-						required="true" requiredMessage="#{mens.inome}" immediate="false">
-		
+										valueChangeListener="#{cadastroPessoasBean.ouvinteAjax}"
+										value="#{cadastroPessoasBean.pessoaSelecionada.nome}"
+										required="true" requiredMessage="#{mens.inome}" immediate="false">
+						<f:ajax  event="keyup"  listener="#{cadastroPessoasBean.ouvinteAjax}"/>
 					</h:inputText>
 					<h:message for="nome" styleClass="erro" />
 		
@@ -151,31 +154,15 @@
 			<h:form>
 				<h2>Lista de pessoas cadastradas</h2>
 				<h:dataTable value="#{cadastroPessoasBean.lista}" var="p"
-					rowClasses="linha1,linha2" width="50%">
+					rowClasses="linha1,linha2" width="50%" style="text-align:center">
+					<cli:coluna nome="Nome" valor="#{p.nome}" escapar="true" informar="false"/>
+					<cli:coluna nome="eMail" valor="#{p.email}" escapar="true" informar="false"/>
+					<cli:coluna nome="Telefone" valor="#{p.telefone}" escapar="false" informar="false"/>
+					
 					<h:column>
-						<f:facet name="header">Nome</f:facet>
-						<h:outputText value="#{p.nome}" escape="true" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">eMail</f:facet>
-						<h:outputText value="#{p.email}" escape="true" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Telefone</f:facet>
-						<h:outputText value="#{p.telefone}" escape="true" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Ações</f:facet>
-						<h:commandLink value="Editar">|
-								<f:setPropertyActionListener value="#{p}"
-								target="#{cadastroPessoasBean.pessoaSelecionada}" />
-						</h:commandLink>
-		
-						<h:commandLink value="Excluir"
-							action="#{cadastroPessoasBean.excluir()}">
-							<f:setPropertyActionListener value="#{p}"
-								target="#{cadastroPessoasBean.pessoaSelecionada}" />
-						</h:commandLink>
+						<f:facet name="header">Ações</f:facet>	
+							<clic:editarExcluir alvo="#{cadastroPessoasBean.pessoaSelecionada}"  
+														objeto="#{p}"  excluirListener="#{cadastroPessoasBean.excluir}" />
 					</h:column>
 				</h:dataTable>
 			</h:form>

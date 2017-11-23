@@ -19,6 +19,8 @@ public class GeralBean {
 	public GeralBean() {
 
 		Iterator<Locale> it = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
+		
+		
 
 		while (it.hasNext()) {
 			localesDisponiveis.add(it.next());
@@ -34,6 +36,11 @@ public class GeralBean {
 		setLocale(FacesContext.getCurrentInstance().getViewRoot().getLocale());
 		// locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
+	}
+
+	@Override
+	public String toString() {
+		return "GeralBean [locale=" + locale + ", localesDisponiveis=" + localesDisponiveis + "]";
 	}
 
 	public void atualizarLocale(ActionEvent e) throws Exception {

@@ -3,11 +3,15 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 
 import modelo.Pessoa;
 import modelo.PessoaFisica;
@@ -112,6 +116,14 @@ public class CadastroPessoasBean {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, ""));
 
 	}
+	
+	public void ouvinteAjax(AjaxBehaviorEvent event) {
+		Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("AJAX " + 	event.getPhaseId());
+	}
+	
+	public void ouvinteAjax(ValueChangeEvent event) {
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).info("AJAX value change ");
+	}
 
 	public Pessoa getPessoaSelecionada() {
 		return pessoaSelecionada;
@@ -148,6 +160,12 @@ public class CadastroPessoasBean {
 
 	public boolean isPessoaJuridicaSeleciona() {
 		return pessoaSelecionada instanceof PessoaJuridica;
+	}
+
+	@Override
+	public String toString() {
+		return "CadastroPessoasBean [pessoaSelecionada=" + pessoaSelecionada + ", lista=" + lista + ", tipoNovaPessoa="
+				+ tipoNovaPessoa + ", resource=" + resource + ", mensagem=" + mensagem + "]";
 	}
 
 }
