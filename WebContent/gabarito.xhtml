@@ -22,7 +22,7 @@
 			<h:form>
 				<ui:repeat var="l" value="#{geralBean.localesDisponiveis}">
 					<h:commandButton image="bandeiras/#{l}.gif" actionListener="#{geralBean.atualizarLocale}" value="" >
-						<f:attribute name="locale" value="#{l}"/>
+						<f:attribute name="locale" value="#{l}"/>&nbsp;
 					</h:commandButton>
 				</ui:repeat>
 			</h:form>

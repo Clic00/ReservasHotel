@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+
+import validadores.CPFValido;
+import validadores.Requeridos;
 
 /**
  * Entity implementation class for Entity: PessoaFisica
@@ -31,6 +35,8 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	public PessoaFisica() {	
 		super();
 	}   
+	
+	@CPFValido(groups=Requeridos.class)
 	public String getCpf() {
 		return this.cpf;
 	}
@@ -47,6 +53,7 @@ public class PessoaFisica extends Pessoa implements Serializable {
 	}   
 	
 	@Temporal(TemporalType.DATE)
+	@Past(message="Data incoerente!")
 	public Date getDataNascimento() {
 		return this.dataNascimento;
 	}

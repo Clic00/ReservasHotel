@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 /**
  * Entity implementation class for Entity: Pessoa
@@ -89,7 +90,9 @@ public abstract class Pessoa implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}   
+	
 	@Column(nullable=false,unique=true)
+	@Pattern(regexp="^.+@.+$", message="{clic00.email}")	
 	public String getEmail() {
 		return this.email;
 	}

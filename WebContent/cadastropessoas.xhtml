@@ -7,9 +7,27 @@
 	xmlns:clic="http://java.sun.com/jsf/composite/componentes">
 
 		<ui:composition template="/gabarito.xhtml">
+			<script type="text/javascript">
+				function funcaoErro(data){
+					}
+				function funcaoEvento(data)
+				{
+					var mensagem = "";
+					for (var i in data){
+						mensagem += i + ": " + data[i] + "\n";
+						}
+						alert(mensagem);
+					}
+			</script>
 			<ui:define name="titulo"></ui:define>
 			<ui:param name="cabecalho" value="HJM - Cadastro de Pessoas" />			
 			<ui:define name="direita"> <h:messages infoClass="info" warnClass="warn" errorClass="erro"	fatalClass="fatal" /></ui:define>
+			
+			<f:metadata>
+				
+				<f:event listener="#{cadastroPessoasBean.viewListener}" type="preRenderView"></f:event>
+			</f:metadata>
+			
 			<h1>Cadastro de Pessoas</h1>
 			<h:form>
 					<h:panelGrid columns="3" width="50%">
@@ -45,7 +63,7 @@
 										valueChangeListener="#{cadastroPessoasBean.ouvinteAjax}"
 										value="#{cadastroPessoasBean.pessoaSelecionada.nome}"
 										required="true" requiredMessage="#{mens.inome}" immediate="false">
-						<f:ajax  event="keyup"  listener="#{cadastroPessoasBean.ouvinteAjax}"/>
+						<f:ajax  event="keyup"  listener="#{cadastroPessoasBean.ouvinteAjax}" execute="" render="formTabela:tabela"/>
 					</h:inputText>
 					<h:message for="nome" styleClass="erro" />
 		
@@ -55,8 +73,9 @@
 						required="true" requiredMessage="#{mens.iemail}"
 						validatorMessage="#{mens.iemail2}" immediate="false">
 						<f:validateRegex pattern=".+@.+" />
+						<f:ajax render="mensEmail :formTabela:tabela"  	execute="@this"   onevent="funcaoEvento"/>
 					</h:inputText>
-					<h:message for="eMail" styleClass="erro" />
+					<h:message id="mensEmail" for="eMail" styleClass="erro" />
 		
 					<h:outputLabel value="Telefone" for="telefone" />
 					<h:inputText id="telefone"
@@ -81,7 +100,8 @@
 					<h:outputLabel value="C.P.F." for="cpf" />
 					<h:inputText id="cpf"
 						value="#{cadastroPessoasBean.pessoaSelecionada.cpf}" required="true"
-						requiredMessage="#{mens.icpf}" validatorMessage="#{mens.icnpj2}">
+						requiredMessage="#{mens.icpf}" validatorMessage="#{mens.icpf}">
+						<f:validateBean validationGroups="validadores.Requeridos"/>
 						<f:validateRegex pattern="\d{3}(\.\d{3}){2}-\d{2}" />
 						<f:validator validatorId="validadorDeCPF" />
 					</h:inputText>
@@ -151,9 +171,9 @@
 					<br />
 			</h:form>
 		
-			<h:form>
+			<h:form  id="formTabela">
 				<h2>Lista de pessoas cadastradas</h2>
-				<h:dataTable value="#{cadastroPessoasBean.lista}" var="p"
+				<h:dataTable id="tabela" value="#{cadastroPessoasBean.lista}" var="p"
 					rowClasses="linha1,linha2" width="50%" style="text-align:center">
 					<cli:coluna nome="Nome" valor="#{p.nome}" escapar="true" informar="false"/>
 					<cli:coluna nome="eMail" valor="#{p.email}" escapar="true" informar="false"/>

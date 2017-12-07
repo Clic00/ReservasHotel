@@ -1,23 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:composite="http://java.sun.com/jsf/composite">
-<ui:composition>
-	<composite:interface>
-		<composite:attribute name="objeto"/>
-		<composite:attribute name="alvo"/>
-		<composite:attribute name="excluirListener"  method-signature="void action()"/>
-	</composite:interface>
-	
-	<composite:implementation>
-		<h:commandLink value="Editar">|
-			<f:setPropertyActionListener value="#{cc.attrs.objeto}" target="#{cc.attrs.alvo}" />
-		</h:commandLink>
-		<h:commandLink value="Excluir" 	action="#{cc.attrs.excluirListener}">
-			<f:setPropertyActionListener value="#{cc.attrs.objeto}" target="#{cc.attrs.alvo}" />
-		</h:commandLink>
-	</composite:implementation>
-</ui:composition>
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:cli="http://www.clic00.com.br/facelets/taglibs">
+		
+		<composite:interface>
+			<composite:attribute name="objeto" />
+			<composite:attribute name="alvo" />
+			<composite:attribute name="excluirListener"
+				method-signature="void action()" />
+		</composite:interface>
+
+		<composite:implementation>
+			<h:commandLink value="Editar">
+				<f:setPropertyActionListener value="#{cc.attrs.objeto}" 	target="#{cc.attrs.alvo}" />
+				<f:param name="codigo" value="#{cc.attrs.objeto.codigo}"/>
+			</h:commandLink>
+			<h:commandLink value="Excluir"
+				action="#{cc.attrs.excluirListener}">
+				<cli:confirmacao />
+				<f:attribute name="codigo" value="#{cc.attrs.objeto.codigo}"/>
+				<f:setPropertyActionListener value="#{cc.attrs.objeto}"
+					target="#{cc.attrs.alvo}" />
+			</h:commandLink>
+		</composite:implementation>
 </html>
